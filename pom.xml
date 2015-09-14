@@ -5,7 +5,7 @@
   <groupId>com.netease.yuandao</groupId>
   <artifactId>alert</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   
 
 
@@ -15,6 +15,7 @@
   	<spring.version>4.1.6.RELEASE</spring.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <jdk.version>1.6</jdk.version>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
   </properties>
   
 
@@ -22,12 +23,41 @@
 		<finalName>alert</finalName>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<showWarnings>true</showWarnings>
+				</configuration>
+			</plugin>
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+<!--             <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <warSourceDirectory>src/main/webapp</warSourceDirectory>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webXml>src/main/webapp/WEB-INF/web.xml</webXml>
+                    <webResources>
+			            <resource>
+			              <directory>src/main/resources</directory>
+			              <targetPath>WEB-INF</targetPath>
+			              <includes>
+			                <include>**/*</include>
+			              </includes>
+			            </resource>
+			          </webResources>
+                </configuration>
+            </plugin> -->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
@@ -50,36 +80,7 @@
 			<build>
 				<resources>
 					<resource>
-						<directory>src/main/resources/dev</directory>
-					</resource>
-					<resource>
-						<directory>src/main/resources/common</directory>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<id>test</id>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources/test</directory>
-					</resource>
-					<resource>
-						<directory>src/main/resources/common</directory>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<id>online</id>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources/online</directory>
-					</resource>
-					<resource>
-						<directory>src/main/resources/common</directory>
+						<directory>src/main/resources</directory>
 					</resource>
 				</resources>
 			</build>
@@ -87,8 +88,6 @@
 	</profiles>
 
 	<dependencies>
-
-
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
